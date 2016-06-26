@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 """ Daily e-mails with goals
 """
@@ -30,7 +30,7 @@ sys.setdefaultencoding('utf8')
 # If modifying these scopes, delete your previously saved credentials
 # at ~/.credentials/gmail-python-quickstart.json
 SCOPES = 'https://mail.google.com/'
-CLIENT_SECRET_FILE = 'client_secret.json'
+CLIENT_SECRET_FILE = '/home/ubuntu/emailGoals/client_secret.json'
 APPLICATION_NAME = 'Gmail API Python Quickstart'
 flags = None
 def get_credentials():
@@ -60,7 +60,7 @@ def get_credentials():
 
 def main():
     # Get Quip document
-    auth_key = open('quip_credentials.json').read().rstrip('\n')
+    auth_key = open('/home/ubuntu/emailGoals/quip_credentials.json').read().rstrip('\n')
     client = quip.QuipClient(
         access_token=auth_key,
         base_url="https://platform.quip.com",
@@ -77,7 +77,7 @@ def main():
     message = MIMEText(thread["html"].encode('utf-8'), 'html')
     message['to'] = "joefarned@gmail.com"
     message['from'] = "joefarned@gmail.com"
-    message['subject'] = "Daily Goal Report"
+    message['subject'] = "Goals"
     service.users().messages().send(userId="me",
         body={'raw': base64.urlsafe_b64encode(message.as_string())}).execute()
 
